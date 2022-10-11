@@ -34,16 +34,7 @@ public class JDBCSelectTest {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
-			while(rs.next()) {
-				int id = rs.getInt("id");
-				String regDate = rs.getString("regDate");
-				String updateDate = rs.getString("updateDate");
-				String title = rs.getString("title");
-				String body = rs.getString("body");
-				
-				Article article = new Article(id, regDate, updateDate, title, body);
-				articles.add(article);
-			}
+			
 
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패");
