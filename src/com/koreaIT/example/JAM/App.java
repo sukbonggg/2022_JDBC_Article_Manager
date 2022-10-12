@@ -2,8 +2,6 @@ package com.koreaIT.example.JAM;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +97,7 @@ public class App {
 			sql.append(" WHERE id = ?", id);
 
 			DBUtil.update(conn, sql);
-			
+
 		} else if (cmd.startsWith("article detail ")) {
 			int id = Integer.parseInt(cmd.split(" ")[2]);
 			System.out.printf("== %d번 게시물 상세보기 ==\n", id);
@@ -117,20 +115,17 @@ public class App {
 				return;
 
 			}
-			
 
 			System.out.printf("== %d번 게시물 상세보기 ==\n", id);
-			
-			Article article =new Article(articleMap);
-			
-			System.out.printf("번호 :	%d\n",article.id);
-			System.out.printf("작성날짜 :	%s\n",article.regDate);
-			System.out.printf("수정날짜 :	%s\n",article.updateDate);
-			System.out.printf("제목 :	%s\n",article.title);
-			System.out.printf("내용 :	%s\n",article.body);
-			
 
-		
+			Article article = new Article(articleMap);
+
+			System.out.printf("번호 :	%d\n", article.id);
+			System.out.printf("작성날짜 :	%s\n", article.regDate);
+			System.out.printf("수정날짜 :	%s\n", article.updateDate);
+			System.out.printf("제목 :	%s\n", article.title);
+			System.out.printf("내용 :	%s\n", article.body);
+
 		} else if (cmd.startsWith("article delete ")) {
 			int id = Integer.parseInt(cmd.split(" ")[2]);
 
@@ -146,9 +141,7 @@ public class App {
 				return;
 
 			}
-			
-		
-			
+
 			sql = new SecSql();
 
 			sql.append("DELETE FROM article");
@@ -186,6 +179,73 @@ public class App {
 				System.out.printf("%d	|	%s\n", article.id, article.title);
 			}
 
+		} else if (cmd.equals("member join")) {
+			System.out.println("== 회원가입 ==");
+			String LoignId = null;
+			String lgoinPw = null;
+			String lgoinPwChk = null;
+			String name = null;
+
+			while (true) {
+				System.out.printf("아이디 : ");
+				LoignId = sc.nextLine().trim();
+				if (LoignId.length() == 0) {
+					System.out.println("아이디를 입력해주세요");
+					continue;
+				}
+				break;
+			}
+			while (true) {
+				System.out.printf("비밀번호 : ");
+				lgoinPw = sc.nextLine().trim();
+
+				if (lgoinPw.length() == 0) {
+					System.out.println("비밀번호를 입력해주세요");
+					continue;
+				}
+
+				boolean loginPwCheck = true;
+
+				while (true) {
+					System.out.printf("비밀번호 확인 : ");
+					lgoinPwChk = sc.nextLine().trim();
+
+					if (lgoinPwChk.length() == 0) {
+						System.out.println("비밀번호 확인을  입력해주세요");
+						continue;
+					}
+					if (lgoinPwChk.equals(lgoinPwChk) == false) {
+						System.out.println("비밀번호가 일치하지 않습니다 다시 입력해주세요");
+						loginPwCheck = false;
+						break;
+					}
+
+				}
+				if (loginPwCheck) {
+					break;
+				}
+
+				while (true) {
+					System.out.printf("이름 : ");
+					name = sc.nextLine().trim();
+					if (name.length() == 0) {
+						System.out.println("이름을  입력해주세요");
+						continue;
+					}
+					break;
+				}
+			}
+			SecSql sql = new SecSql();
+
+			sql.append("INSERT INTO member");
+			sql.append("SET regDate = NOW()");
+			sql.append(", updateDate = NOW()");
+			sql.append(", loginId = ?", LoignId);
+			sql.append(", loginPw = ?", lgoinPw);
+			sql.append(", `name` = ?", name);
+
+			int id = DBUtil.insert(conn, sql);
+			System.out.printf("%s회원이 가입되었습니다\n", name);
 		}
 	}
 }
