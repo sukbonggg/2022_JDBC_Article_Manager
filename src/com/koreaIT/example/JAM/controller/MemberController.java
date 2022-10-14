@@ -3,18 +3,14 @@ package com.koreaIT.example.JAM.controller;
 import java.sql.Connection;
 import java.util.Scanner;
 
-import com.koreaIT.example.JAM.dao.MemberDao;
 import com.koreaIT.example.JAM.service.MemberService;
-import com.koreaIT.example.JAM.util.DBUtil;
-import com.koreaIT.example.JAM.util.SecSql;
 
 public class MemberController extends Controller {
-	private MemberService memberSerivce;
+private MemberService memberService;
 	
-
 	public MemberController(Connection conn, Scanner sc) {
 		super(sc);
-		this.memberSerivce=new MemberService(conn);
+		this.memberService = new MemberService(conn);
 	}
 
 	public void doJoin(String cmd) {
@@ -32,9 +28,8 @@ public class MemberController extends Controller {
 				System.out.println("아이디를 입력해주세요");
 				continue;
 			}
-
 			
-			boolean isLoginIdDup = memberSerivce.isLoginIdDup(loginId);
+			boolean isLoginIdDup = memberService.isLoginIdDup(loginId);
 
 			if (isLoginIdDup) {
 				System.out.printf("%s은(는) 이미 사용중인 아이디입니다\n", loginId);
@@ -84,13 +79,10 @@ public class MemberController extends Controller {
 			}
 			break;
 		}
-
 		
-		
-		int id =memberSerivce.dojoin(loginId,loginPw,name);
+		memberService.doJoin(loginId, loginPw, name);
 
 		System.out.printf("%s 님, 가입 되었습니다\n", name);
-
 	}
-
+	
 }

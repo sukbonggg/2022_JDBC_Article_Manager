@@ -1,7 +1,9 @@
 package com.koreaIT.example.JAM.service;
 
 import java.sql.Connection;
+import java.util.List;
 
+import com.koreaIT.example.JAM.Article;
 import com.koreaIT.example.JAM.dao.ArticleDao;
 import com.koreaIT.example.JAM.util.DBUtil;
 import com.koreaIT.example.JAM.util.SecSql;
@@ -27,6 +29,16 @@ public class ArticleService {
 	
 	public boolean isArticleExists(int id) {
 		return articleDao.isArticeExists(id);
+	}
+
+	public Article getArticle(int id) {
+		
+		return articleDao.getArticle(id);
+	}
+
+	public List<Article> getArticles() {
+		
+		return articleDao.getArticles();
 	}
 
 }
