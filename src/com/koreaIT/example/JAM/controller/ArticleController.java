@@ -10,7 +10,6 @@ import com.koreaIT.example.JAM.service.ArticleService;
 public class ArticleController extends Controller {
 
 	private ArticleService articleService;
-	
 
 	public ArticleController(Connection conn, Scanner sc) {
 		super(sc);
@@ -40,7 +39,6 @@ public class ArticleController extends Controller {
 			return;
 		}
 
-		
 		System.out.println("==게시물 리스트==");
 		System.out.println("번호	|	제목");
 
@@ -70,6 +68,14 @@ public class ArticleController extends Controller {
 
 	public void doModify(String cmd) {
 		int id = Integer.parseInt(cmd.split(" ")[2]);
+		
+		boolean isArticleExists = articleService.isArticleExists(id);
+
+		if (isArticleExists == false) {
+			System.out.printf("%d번 게시글은 존재하지 않습니다\n", id);
+			return;
+		}
+		
 		System.out.printf("== %d번 게시물 수정 ==\n", id);
 
 		System.out.printf("수정할 제목 : ");

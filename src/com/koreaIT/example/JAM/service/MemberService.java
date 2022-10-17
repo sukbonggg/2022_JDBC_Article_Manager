@@ -1,7 +1,9 @@
 package com.koreaIT.example.JAM.service;
 
+
 import java.sql.Connection;
 
+import com.koreaIT.example.JAM.Member;
 import com.koreaIT.example.JAM.dao.MemberDao;
 
 public class MemberService {
@@ -17,6 +19,13 @@ private MemberDao memberDao;
 	
 	public boolean isLoginIdDup(String loginId) {
 		return memberDao.isLoginIdDup(loginId);
+	}
+
+
+
+	public Member getMemeberByLgoinId(String loginId) {
+	
+		return  memberDao.getMemeberByLgoinId(loginId);
 	}
 	
 }

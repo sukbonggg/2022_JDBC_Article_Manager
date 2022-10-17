@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.koreaIT.example.JAM.Article;
 import com.koreaIT.example.JAM.dao.ArticleDao;
-import com.koreaIT.example.JAM.util.DBUtil;
-import com.koreaIT.example.JAM.util.SecSql;
 
 public class ArticleService {
 	private ArticleDao articleDao;
