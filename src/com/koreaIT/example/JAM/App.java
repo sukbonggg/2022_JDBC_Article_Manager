@@ -18,7 +18,7 @@ public class App {
 		while (true) {
 			System.out.printf("명령어) ");
 			String cmd = Container.sc.nextLine().trim();
-
+ 
 			Connection conn = null;
 
 			try {
@@ -64,6 +64,8 @@ public class App {
 
 		if (cmd.equals("member join")) {
 			memberController.doJoin(cmd);
+		} else if (cmd.equals("member profile")) {
+				memberController.showProfile(cmd);
 		} else if (cmd.equals("member login")) {
 			memberController.doLogin(cmd);
 		} else if (cmd.equals("article write")) {

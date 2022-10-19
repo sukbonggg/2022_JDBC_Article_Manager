@@ -1,6 +1,5 @@
 package com.koreaIT.example.JAM.controller;
 
-
 import com.koreaIT.example.JAM.Member;
 import com.koreaIT.example.JAM.container.Container;
 import com.koreaIT.example.JAM.service.MemberService;
@@ -8,6 +7,7 @@ import com.koreaIT.example.JAM.service.MemberService;
 public class MemberController extends Controller {
 	private MemberService memberService;
 
+	
 	public MemberController() {
 		this.memberService = Container.memberService;
 	}
@@ -85,8 +85,8 @@ public class MemberController extends Controller {
 	}
 
 	public void doLogin(String cmd) {
-		String loginId = null;
-		String loginPw = null;
+		String	loginId = null;
+		String	loginPw = null;
 		System.out.println("== 로그인 ==");
 
 		while (true) {
@@ -135,10 +135,23 @@ public class MemberController extends Controller {
 			}
 
 			System.out.printf("%s님 환영합니다\n", member.name);
+			Container.session.loginedMemberId= member.id;
+			Container.session.loginedMember=member;
+			
 			break;
 
 		}
 
 	}
 
+	public void showProfile(String cmd) {
+		if(Container.session.loginedMemberId ==-1) {
+			System.out.println("로그인 상태가 아닙니다");
+		}else {
+			System.out.println(Container.session.loginedMember.loginId);
+			System.out.println(Container.session.loginedMember.name);
+			System.out.println(Container.session.loginedMember.regDate);
+		}
+
+}
 }
