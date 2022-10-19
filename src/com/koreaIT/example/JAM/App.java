@@ -64,10 +64,12 @@ public class App {
 
 		if (cmd.equals("member join")) {
 			memberController.doJoin(cmd);
+		} else if (cmd.equals("member logout")) {
+				memberController.Logout(cmd);
 		} else if (cmd.equals("member profile")) {
 				memberController.showProfile(cmd);
 		} else if (cmd.equals("member login")) {
-			memberController.doLogin(cmd);
+			memberController.Login(cmd);
 		} else if (cmd.equals("article write")) {
 			articleController.doWrite(cmd);
 		} else if (cmd.equals("article list")) {
