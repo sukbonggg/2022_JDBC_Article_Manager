@@ -1,9 +1,6 @@
 package com.koreaIT.example.JAM.controller;
 
 
-import java.sql.Connection;
-import java.util.Scanner;
-
 import com.koreaIT.example.JAM.Member;
 import com.koreaIT.example.JAM.container.Container;
 import com.koreaIT.example.JAM.service.MemberService;

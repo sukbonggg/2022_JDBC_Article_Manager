@@ -3,20 +3,15 @@ package com.koreaIT.example.JAM;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import com.koreaIT.example.JAM.container.Container;
 import com.koreaIT.example.JAM.controller.ArticleController;
 import com.koreaIT.example.JAM.controller.MemberController;
-import com.koreaIT.example.JAM.util.DBUtil;
-import com.koreaIT.example.JAM.util.SecSql;
 
 public class App {
 	public void run() {
-		Scanner sc = new Scanner(System.in);
+		Container. sc = new Scanner(System.in);
 
 		Container.init();
 
@@ -37,6 +32,9 @@ public class App {
 
 			try {
 				conn = DriverManager.getConnection(url, "root", "");
+
+				Container.conn = conn;
+				
 				doAction(cmd);
 
 				if (cmd.equals("exit")) {
@@ -56,7 +54,7 @@ public class App {
 				}
 			}
 		}
-		sc.close();
+		Container.sc.close();
 	}
 
 	private void doAction(String cmd) {

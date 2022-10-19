@@ -1,6 +1,5 @@
 package com.koreaIT.example.JAM.service;
 
-import java.sql.Connection;
 import java.util.List;
 
 import com.koreaIT.example.JAM.Article;

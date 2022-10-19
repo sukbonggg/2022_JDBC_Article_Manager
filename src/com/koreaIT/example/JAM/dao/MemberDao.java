@@ -1,18 +1,18 @@
 package com.koreaIT.example.JAM.dao;
 
 
-import java.sql.Connection;
 import java.util.Map;
 
 import com.koreaIT.example.JAM.Member;
+import com.koreaIT.example.JAM.container.Container;
 import com.koreaIT.example.JAM.util.DBUtil;
 import com.koreaIT.example.JAM.util.SecSql;
 
 public class MemberDao {
-	private Connection conn;
+	
 
 	public MemberDao() {
-		this.conn = conn;
+		
 	}
 
 	public int doJoin(String loginId, String loginPw, String name) {
@@ -25,7 +25,7 @@ public class MemberDao {
 		sql.append(", loginPw = ?", loginPw);
 		sql.append(", `name` = ?", name);
 
-		return DBUtil.insert(conn, sql);
+		return DBUtil.insert(Container.conn, sql);
 	}
 
 	public boolean isLoginIdDup(String loginId) {
@@ -35,7 +35,7 @@ public class MemberDao {
 		sql.append("FROM `member`");
 		sql.append("WHERE loginId = ?", loginId);
 
-		return DBUtil.selectRowBooleanValue(conn, sql);
+		return DBUtil.selectRowBooleanValue(Container.conn, sql);
 	}
 
 	public Member getMemberByLoginId(String loginId) {
@@ -45,7 +45,7 @@ public class MemberDao {
 		sql.append("FROM `member`");
 		sql.append("WHERE loginId = ?", loginId);
 
-		Map<String, Object> memberMap = DBUtil.selectRow(conn, sql);
+		Map<String, Object> memberMap = DBUtil.selectRow(Container.conn, sql);
 
 		if (memberMap.isEmpty()) {
 			return null;

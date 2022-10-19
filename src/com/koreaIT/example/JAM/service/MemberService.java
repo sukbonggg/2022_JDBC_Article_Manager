@@ -1,8 +1,6 @@
 package com.koreaIT.example.JAM.service;
 
 
-import java.sql.Connection;
-
 import com.koreaIT.example.JAM.Member;
 import com.koreaIT.example.JAM.container.Container;
 import com.koreaIT.example.JAM.dao.MemberDao;
