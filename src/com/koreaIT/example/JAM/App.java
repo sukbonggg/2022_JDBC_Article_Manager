@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import com.koreaIT.example.JAM.container.Container;
 import com.koreaIT.example.JAM.controller.ArticleController;
 import com.koreaIT.example.JAM.controller.MemberController;
 import com.koreaIT.example.JAM.util.DBUtil;
@@ -17,9 +18,11 @@ public class App {
 	public void run() {
 		Scanner sc = new Scanner(System.in);
 
+		Container.init();
+
 		while (true) {
 			System.out.printf("명령어) ");
-			String cmd = sc.nextLine().trim();
+			String cmd = Container.sc.nextLine().trim();
 
 			Connection conn = null;
 
@@ -34,7 +37,7 @@ public class App {
 
 			try {
 				conn = DriverManager.getConnection(url, "root", "");
-				doAction(conn, sc, cmd);
+				doAction(cmd);
 
 				if (cmd.equals("exit")) {
 					System.out.println("프로그램을 종료합니다");
@@ -56,25 +59,25 @@ public class App {
 		sc.close();
 	}
 
-	private void doAction(Connection conn, Scanner sc, String cmd) {
+	private void doAction(String cmd) {
 
-		MemberController memberController = new MemberController(conn, sc);
-		ArticleController articleController = new ArticleController(conn, sc);
-		
+		MemberController memberController = Container.memberController;
+		ArticleController articleController = Container.articleController;
+
 		if (cmd.equals("member join")) {
 			memberController.doJoin(cmd);
-		}else if (cmd.equals("member login")) {
-				memberController.doLogin(cmd);
+		} else if (cmd.equals("member login")) {
+			memberController.doLogin(cmd);
 		} else if (cmd.equals("article write")) {
 			articleController.doWrite(cmd);
+		} else if (cmd.equals("article list")) {
+			articleController.showList(cmd);
 		} else if (cmd.startsWith("article detail ")) {
 			articleController.showDetail(cmd);
 		} else if (cmd.startsWith("article modify ")) {
 			articleController.doModify(cmd);
 		} else if (cmd.startsWith("article delete ")) {
 			articleController.doDelete(cmd);
-		} else if (cmd.equals("article list")) {
-			articleController.showList(cmd);
 		} else {
 			System.out.println("존재하지 않는 명령어 입니다");
 		}
