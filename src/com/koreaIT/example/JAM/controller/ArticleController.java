@@ -5,13 +5,14 @@ import java.util.List;
 import com.koreaIT.example.JAM.Article;
 import com.koreaIT.example.JAM.container.Container;
 import com.koreaIT.example.JAM.service.ArticleService;
+import com.koreaIT.example.JAM.session.Session;
 
 public class ArticleController extends Controller {
 
 	private ArticleService articleService;
 
 	public ArticleController() {
-
+		
 		articleService = Container.articleService;
 	}
 
@@ -27,8 +28,12 @@ public class ArticleController extends Controller {
 		String title = sc.nextLine();
 		System.out.printf("내용 : ");
 		String body = sc.nextLine();
-
-		int id = articleService.doWrite(title, body);
+		
+		
+		int memberId = Container.session.loginedMemberId;
+		int hit = 0;
+		
+		int id = articleService.doWrite(title, body,memberId,hit);
 
 		System.out.printf("%d번 글이 생성 되었습니다\n", id);
 	}
@@ -44,10 +49,10 @@ public class ArticleController extends Controller {
 
 		System.out.println("== 게시물 리스트 ==");
 
-		System.out.println("번호	|	제목");
+		System.out.println("번호	|	제목	|	작성자	|	작성일");
 
 		for (Article article : articles) {
-			System.out.printf("%d	|	%s\n", article.id, article.title);
+			System.out.printf("%d	|	%s	|	%d	|	%s\n", article.id, article.title,article.writerName,article.updateDate );
 		}
 	}
 
@@ -60,13 +65,16 @@ public class ArticleController extends Controller {
 			System.out.printf("%d번 게시글은 존재하지 않습니다\n", id);
 			return;
 		}
-
+	
 		System.out.printf("== %d번 게시물 상세보기 ==\n", id);
 		System.out.printf("번호 : %d\n", article.id);
+		System.out.printf("작성자 : %s\n", article.writerName);
 		System.out.printf("작성날짜 : %s\n", article.regDate);
 		System.out.printf("수정날짜 : %s\n", article.updateDate);
 		System.out.printf("제목 : %s\n", article.title);
 		System.out.printf("내용 : %s\n", article.body);
+		System.out.printf("조회수 : %s\n", article.);
+		
 	}
 
 	public void doModify(String cmd) {

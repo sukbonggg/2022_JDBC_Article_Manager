@@ -16,7 +16,7 @@ public class ArticleDao {
 	public ArticleDao() {
 	}
 
-	public int doWrite(String title, String body) {
+	public int doWrite(String title, String body, int memberId, int hit) {
 		SecSql sql = new SecSql();
 
 		sql.append("INSERT INTO article");
@@ -24,6 +24,8 @@ public class ArticleDao {
 		sql.append(", updateDate = NOW()");
 		sql.append(", title = ?", title);
 		sql.append(", `body` = ?", body);
+		sql.append(", `memberId` = ?", memberId);
+		sql.append(", `hit` = ?", hit);
 
 		return DBUtil.insert(Container.conn, sql);
 	}
@@ -78,9 +80,11 @@ public class ArticleDao {
 
 		SecSql sql = new SecSql();
 
-		sql.append("SELECT *");
-		sql.append("FROM article");
-		sql.append("ORDER BY id DESC;");
+		sql.append("SELECT A.*, M.name AS wrtierName");
+		sql.append("FROM article AS A"); 
+		sql.append("INNER JOIN `member` AS M");  
+		sql.append("ON A.memberId =M.id"); 
+		sql.append("ORDER BY id DESC;"); 
 
 		List<Map<String, Object>> articleListMap = DBUtil.selectRows(Container.conn, sql);
 
@@ -91,4 +95,6 @@ public class ArticleDao {
 		}
 		return articles;
 	}
+
+	
 }
