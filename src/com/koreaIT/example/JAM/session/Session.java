@@ -12,7 +12,7 @@ public class Session {
 
 	public void login(Member member) {
 		loginedMember =member;
-		loginedMemberId=member.id;
+		loginedMemberId = member.id;
 		
 	}
 

@@ -1,6 +1,5 @@
 package com.koreaIT.example.JAM.dao;
 
-
 import java.util.Map;
 
 import com.koreaIT.example.JAM.Member;
@@ -9,10 +8,9 @@ import com.koreaIT.example.JAM.util.DBUtil;
 import com.koreaIT.example.JAM.util.SecSql;
 
 public class MemberDao {
-	
 
 	public MemberDao() {
-		
+
 	}
 
 	public int doJoin(String loginId, String loginPw, String name) {

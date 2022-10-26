@@ -5,7 +5,6 @@ import java.util.List;
 import com.koreaIT.example.JAM.Article;
 import com.koreaIT.example.JAM.container.Container;
 import com.koreaIT.example.JAM.service.ArticleService;
-import com.koreaIT.example.JAM.session.Session;
 
 public class ArticleController extends Controller {
 
@@ -37,8 +36,23 @@ public class ArticleController extends Controller {
 	}
 
 	public void showList(String cmd) {
-
-		List<Article> articles = articleService.getArticles();
+		
+		String[] cmdBits =cmd.split(" ");
+		
+		int page = 1;
+		String searchKeyword = "";
+		
+		if(cmdBits.length>=3) {
+			page = Integer.parseInt(cmdBits[2]);
+		}
+		
+		if(cmdBits.length>=4) {
+			searchKeyword=cmdBits[3];
+		}
+		
+		int itemsInAPage =10;
+		
+		List<Article> articles = articleService.getForPrintArticles(page,itemsInAPage,searchKeyword);
 
 		if (articles.size() == 0) {
 			System.out.println("게시물이 없습니다");
@@ -125,7 +139,7 @@ public class ArticleController extends Controller {
 			System.out.printf("%d번 게시글은 존재하지 않습니다\n", id);
 			return;
 		}
-		
+
 		if (article.memberId != Container.session.loginedMemberId) {
 			System.out.println("헤당 게시글에 대한 권한이 없습니다");
 			return;
